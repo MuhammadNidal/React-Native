@@ -259,103 +259,126 @@
 //   }
 // });
 
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet } from "react-native";
+// import React, { useState } from "react";
+// import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet } from "react-native";
 
-type Task = { id: string; text: string; completed: boolean };
+// type Task = { id: string; text: string; completed: boolean };
 
-export default function HomeScreen() {
-  const [task, setTask] = useState("");            // Input state
-  const [tasks, setTasks] = useState<Task[]>([]);  // Todo list state
+// export default function HomeScreen() {
+//   const [task, setTask] = useState("");            // Input state
+//   const [tasks, setTasks] = useState<Task[]>([]);  // Todo list state
 
-  // ✅ Add Task
-  const addTask = () => {
-    if (task.trim() === "") return;
-    setTasks([...tasks, { id: Date.now().toString(), text: task, completed: false }]);
-    setTask(""); // Clear input
-  };
+//   // ✅ Add Task
+//   const addTask = () => {
+//     if (task.trim() === "") return;
+//     setTasks([...tasks, { id: Date.now().toString(), text: task, completed: false }]);
+//     setTask(""); // Clear input
+//   };
 
-  // ✅ Delete Task
-  const deleteTask = (id) => {
-    setTasks(tasks.filter((item) => item.id !== id));
-  };
+//   // ✅ Delete Task
+//   const deleteTask = (id:string) => {
+//     setTasks(tasks.filter((item) => item.id !== id));
+//   };
 
-  // ✅ Toggle Complete
-  const toggleComplete = (id) => {
-    setTasks(
-      tasks.map((item) =>
-        item.id === id ? { ...item, completed: !item.completed } : item
-      )
-    );
-  };
+//   // ✅ Toggle Complete
+//   const toggleComplete = (id:string) => {
+//     setTasks(
+//       tasks.map((item) =>
+//         item.id === id ? { ...item, completed: !item.completed } : item
+//       )
+//     );
+//   };
 
-  // ✅ Render Each Task
-  const renderItem = ({ item }) => (
-    <View style={styles.taskItem}>
-      <TouchableOpacity onPress={() => toggleComplete(item.id)} style={{ flex: 1 }}>
-        <Text style={[styles.taskText, item.completed && styles.completed]}>
-          {item.text}
-        </Text>
+//   // ✅ Render Each Task
+//   const renderItem = ({ item }) => (
+//     <View style={styles.taskItem}>
+//       <TouchableOpacity onPress={() => toggleComplete(item.id)} style={{ flex: 1 }}>
+//         <Text style={[styles.taskText, item.completed && styles.completed]}>
+//           {item.text}
+//         </Text>
+//       </TouchableOpacity>
+
+//       <TouchableOpacity onPress={() => deleteTask(item.id)}>
+//         <Text style={styles.deleteText}>❌</Text>
+//       </TouchableOpacity>
+//     </View>
+//   );
+
+//   return (
+//     <View style={styles.container}>
+//       {/* Input & Add Button */}
+//       <View style={styles.inputRow}>
+//         <TextInput
+//           style={styles.input}
+//           placeholder="Enter task..."
+//           value={task}
+//           onChangeText={setTask}
+//         />
+//         <TouchableOpacity style={styles.addButton} onPress={addTask}>
+//           <Text style={styles.addText}>➕</Text>
+//         </TouchableOpacity>
+//       </View>
+
+//       {/* Todo List */}
+//       <FlatList
+//         data={tasks}
+//         keyExtractor={(item) => item.id}
+//         renderItem={renderItem}
+//       />
+//     </View>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   container: { flex: 1, padding: 20, backgroundColor:"pink", marginTop: 40 },
+//   inputRow: { flexDirection: "row", marginBottom: 20 },
+//   input: {
+//     flex: 1,
+//     borderWidth: 1,
+//     borderColor: "#5c0303ff",
+//     padding: 10,
+//     width:30,
+//     borderRadius: 20,
+//   },
+//   addButton: {
+//     marginLeft: 10,
+//     backgroundColor: "blue",
+//     padding: 10,
+//     borderRadius: 5,
+//   },
+//   addText: { color: "white", fontSize: 20 },
+//   taskItem: {
+//     flexDirection: "row",
+//     alignItems: "center",
+//     backgroundColor: "#f9f9f9",
+//     padding: 15,
+//     marginBottom: 10,
+//     borderRadius: 8,
+//   },
+//   taskText: { fontSize: 18 },
+//   completed: { textDecorationLine: "line-through", color: "gray" },
+//   deleteText: { fontSize: 18, marginLeft: 10, color: "red" },
+// });
+
+
+import React from "react";
+import { View,Text,Button,TouchableOpacity,Pressable } from "react-native";
+
+
+export default function HomeScreen(){
+  return(
+    <View style={{flex:1,justifyContent:"center",alignItems:"center" ,backgroundColor:"green"}}>
+      <Text style={{fontSize:24,fontWeight:"bold",color:"white"}}>Home Screen</Text>
+      <Text style={{fontSize:18,fontWeight:"normal",color:"white"}}>Welcome to the Home Screen!</Text>
+    <Button title="cLICK ME " onPress={()=>{alert("you press me ")}}/>
+      <TouchableOpacity onPress={()=>{alert("you press me ")}}>
+        <Text style={{color:"white"}}>TouchableOpacity</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => deleteTask(item.id)}>
-        <Text style={styles.deleteText}>❌</Text>
-      </TouchableOpacity>
+      <Pressable onPress={()=>{alert("you press me ")}}>
+        <Text style={{color:"white"}}>Pressable</Text>
+      </Pressable>
     </View>
   );
 
-  return (
-    <View style={styles.container}>
-      {/* Input & Add Button */}
-      <View style={styles.inputRow}>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter task..."
-          value={task}
-          onChangeText={setTask}
-        />
-        <TouchableOpacity style={styles.addButton} onPress={addTask}>
-          <Text style={styles.addText}>➕</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Todo List */}
-      <FlatList
-        data={tasks}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-      />
-    </View>
-  );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor:"pink", marginTop: 40 },
-  inputRow: { flexDirection: "row", marginBottom: 20 },
-  input: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: "#5c0303ff",
-    padding: 10,
-    width:30,
-    borderRadius: 20,
-  },
-  addButton: {
-    marginLeft: 10,
-    backgroundColor: "blue",
-    padding: 10,
-    borderRadius: 5,
-  },
-  addText: { color: "white", fontSize: 20 },
-  taskItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#f9f9f9",
-    padding: 15,
-    marginBottom: 10,
-    borderRadius: 8,
-  },
-  taskText: { fontSize: 18 },
-  completed: { textDecorationLine: "line-through", color: "gray" },
-  deleteText: { fontSize: 18, marginLeft: 10, color: "red" },
-});
+  
